@@ -1,3 +1,4 @@
-# GameDev
-
-Branch - YarikBur
+# GameDev 
+`Branch - YarikBur`
+<hr>
+**Инструкция**
