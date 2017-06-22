@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package ru.smirnov48.gamedev;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
