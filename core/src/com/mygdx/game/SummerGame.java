@@ -6,28 +6,28 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Iokin.Animator;
 import com.mygdx.game.Iokin.World;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
+import com.mygdx.game.Iokin.Player;
 
 public class SummerGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	World world;
-	Animator animator;
+	Player player;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();		
 		world = new World();
-		animator = new Animator();
-		animator.create();
+		player = new Player();
+		player.create();
 	}
 
 	@Override
 	public void render () {
 		world.render(batch);
-		animator.render();
+		player.render();
 	}
 	
 	@Override
