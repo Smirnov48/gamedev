@@ -6,8 +6,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -22,11 +24,14 @@ import com.mygdx.game.test.controller.Input;
 
 public class Map extends ApplicationAdapter implements Screen {
 	Input input;
+	
+	Animation<TextureRegion> walkAnimation;
+	
 	boolean debug, pressedKey;
 	
 	final float PTM = 100f;
 	
-	float key, speedP = 4;
+	float key, speedP = 4, stateTime;
 	
 	Body Badlogic;
 	
@@ -37,6 +42,7 @@ public class Map extends ApplicationAdapter implements Screen {
 	Sprite badlogic;
 	
 	Texture ui;
+	Texture walkSheet;
 	
 	Main main;
 	
@@ -57,10 +63,26 @@ public class Map extends ApplicationAdapter implements Screen {
 		ui = new Texture("ui.png");
 		input = new Input();
 		Gdx.input.setInputProcessor(input);
+		loadAnim();
+		stateTime = 0f;
+	}
+	
+	private void loadAnim(){
+		walkSheet = new Texture(Gdx.files.internal("assets/mage.png"));
+		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/21, walkSheet.getHeight()/7);
+		TextureRegion[] walkFrames = new TextureRegion[21 * 7+1];
+		int index = 0;
+		for (int i = 0; i < 21; i++) {
+			for (int j = 0; j < 7; j++) {
+				walkFrames[index++] = tmp[i][j];
+			}
+		}
+		walkAnimation = new Animation<TextureRegion>(0.025f, walkFrames);
 	}
 	
 	@Override
 	public void render(float delta) {
+		stateTime += Gdx.graphics.getDeltaTime();
 		camera.update();
 		updateVariables();
 		Gdx.gl.glClearColor(.1f, .1f, .1f, 1);
@@ -79,6 +101,8 @@ public class Map extends ApplicationAdapter implements Screen {
 	}
 	
 	private void drawSprite(){
+		TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime, true);
+		batch.draw(currentFrame, 50, 50);
 		badlogic.draw(batch);
 		//batch.draw(ui, 0, 0);
 	}
@@ -153,6 +177,6 @@ public class Map extends ApplicationAdapter implements Screen {
 	@Override
 	public void dispose() {
 		world.dispose();
+		walkSheet.dispose();
 	}
-	
 }
