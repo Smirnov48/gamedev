@@ -18,7 +18,6 @@ public class SummerGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-<<<<<<< HEAD
 		Gdx.gl.glClearColor(1, 0, 1, 1);
 =======
 <<<<<<< HEAD
