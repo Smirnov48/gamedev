@@ -6,43 +6,29 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.test.controller.Input;
+import com.mygdx.game.test.animations.Animator;
+import com.mygdx.game.test.player.Player;
+import com.mygdx.game.test.wolrd.MyWorld;
 
 public class Map extends ApplicationAdapter implements Screen {
-	Input input;
-	
-	Animation<TextureRegion> walkAnimation;
-	
-	boolean debug, pressedKey;
+	boolean debug;
 	
 	final float PTM = 100f;
 	
-	float key, speedP = 4, stateTime;
-	
-	Body Badlogic;
+	float speedP = 4, stateTime;
 	
 	SpriteBatch batch;
 	
-	World world;
-	
-	Sprite badlogic;
+	static MyWorld world;
+	static Animator anim;
+	static Player player;
 	
 	Texture ui;
-	Texture walkSheet;
 	
 	Main main;
 	
@@ -54,31 +40,15 @@ public class Map extends ApplicationAdapter implements Screen {
 	
 	@Override
 	public void show() {
-		world = new World(new Vector2(0, 0), false);
+		world = new MyWorld();
 		batch = new SpriteBatch();
-		badlogic = new Sprite(new Texture("badlogic.jpg"));
-		badlogic.setPosition(Gdx.graphics.getWidth()/2-badlogic.getWidth()/2, Gdx.graphics.getHeight()/2-badlogic.getHeight()/2);
-		Badlogic = createObj(BodyDef.BodyType.DynamicBody, badlogic, "badlogic", badlogic.getX(), badlogic.getY());
-		Badlogic.getFixtureList().get(0).setUserData("Badlogic");
+		player = new Player("badlogic.jpg", "Player");
+		anim = new Animator();
 		ui = new Texture("ui.png");
-		input = new Input();
-		Gdx.input.setInputProcessor(input);
-		loadAnim();
 		stateTime = 0f;
 	}
 	
-	private void loadAnim(){
-		walkSheet = new Texture(Gdx.files.internal("assets/mage.png"));
-		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/21, walkSheet.getHeight()/7);
-		TextureRegion[] walkFrames = new TextureRegion[21 * 7+1];
-		int index = 0;
-		for (int i = 0; i < 21; i++) {
-			for (int j = 0; j < 7; j++) {
-				walkFrames[index++] = tmp[i][j];
-			}
-		}
-		walkAnimation = new Animation<TextureRegion>(0.025f, walkFrames);
-	}
+	
 	
 	@Override
 	public void render(float delta) {
@@ -87,7 +57,7 @@ public class Map extends ApplicationAdapter implements Screen {
 		updateVariables();
 		Gdx.gl.glClearColor(.1f, .1f, .1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		world.step(delta, 4, 4);
+		world.getWorld().step(delta, 4, 4);
 		batch.begin();
 		
 		pressed();
@@ -95,20 +65,18 @@ public class Map extends ApplicationAdapter implements Screen {
 		drawSprite();
 		
 		debugMatrix = batch.getProjectionMatrix().cpy().scale(PTM, PTM, 0);
-		if(debug) renderer.render(world, debugMatrix);
+		if(debug) renderer.render(world.getWorld(), debugMatrix);
 		
 		batch.end();
 	}
 	
 	private void drawSprite(){
-		TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime, true);
-		batch.draw(currentFrame, 50, 50);
-		badlogic.draw(batch);
+		player.getSprite().draw(batch);
 		//batch.draw(ui, 0, 0);
 	}
 	
 	private void updatePosition(){
-		pos(Badlogic, badlogic);
+		pos(player.getBody(), player.getSprite());
 	}
 	
 	private void pos(Body body, Sprite sprite){
@@ -117,49 +85,21 @@ public class Map extends ApplicationAdapter implements Screen {
 		sprite.setRotation(body.getAngle()*PTM);
 	}
 	
-	@SuppressWarnings("unused")
-	private Body createObj(BodyDef.BodyType type, Sprite sprite, String str, float x, float y){
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = type;
-		bodyDef.position.set((x + sprite.getWidth()/2)/PTM, (y+sprite.getHeight()/2)/PTM);
-		
-		Body body = world.createBody(bodyDef);
-		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(sprite.getWidth()/2/PTM, sprite.getHeight()/2/PTM);
-		
-		CircleShape circle = new CircleShape();
-		circle.setRadius(sprite.getWidth()/2/PTM);
-		
-		FixtureDef fDef = new FixtureDef();
-		if(str.equals("Player")) fDef.shape = circle;
-		else fDef.shape = shape;
-		fDef.density=1;
-		fDef.friction=0;
-		if(!str.equals("player")) fDef.restitution=(float) 1.05;
-		Fixture fixture = body.createFixture(fDef);
-		shape.dispose();
-		circle.dispose();
-		return body;
-	}
-	
+	@SuppressWarnings("static-access")
 	private void pressed(){
-		 
-		if(pressedKey){
-			//System.out.println(key);
-			if(key==29 | key==21) Badlogic.setLinearVelocity(-1, 0);
-			else if(key==32 | key==22) Badlogic.setLinearVelocity(1, 0);
-			else if(key==51 | key==19) Badlogic.setLinearVelocity(0, 1);
-			else if(key==47 | key==20) Badlogic.setLinearVelocity(0, -1);
-			else if(key==131) Gdx.app.exit();
+		if(player.pressed()){
+			if(player.left()) player.getBody().setLinearVelocity(-1, 0);
+			if(player.right()) player.getBody().setLinearVelocity(1, 0);
+			if(player.up()) player.getBody().setLinearVelocity(0, 1);
+			if(player.down()) player.getBody().setLinearVelocity(0, -1);
 		} else {
-			Badlogic.setLinearVelocity(0, 0);
+			player.getBody().setLinearVelocity(0, 0);
 		}
 	}
 	
+	@SuppressWarnings("static-access")
 	public void updateVariables(){
-		this.debug = input.debug();
-		this.pressedKey = input.pressedKey();
-		this.key = input.key();
+		this.debug = player.debug();
 	}
 	
 	@Override
@@ -177,6 +117,6 @@ public class Map extends ApplicationAdapter implements Screen {
 	@Override
 	public void dispose() {
 		world.dispose();
-		walkSheet.dispose();
+		
 	}
 }

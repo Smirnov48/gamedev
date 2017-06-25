@@ -3,7 +3,7 @@ package com.mygdx.game.test.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
-public class InputOne implements InputProcessor {
+public class InputTwo implements InputProcessor {
 	static boolean pressedKey=false;
 	static boolean debug=false;
 	static float key=0;
@@ -29,6 +29,9 @@ public class InputOne implements InputProcessor {
 	}
 
 	@Override
+	public boolean keyTyped(char character) { return false; }
+
+	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) { return false; }
 
 	@Override
@@ -42,6 +45,5 @@ public class InputOne implements InputProcessor {
 
 	@Override
 	public boolean scrolled(int amount) { return false; }
-	@Override
-	public boolean keyTyped(char character) { return false; }
+
 }
