@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
@@ -23,6 +24,8 @@ public class Map extends ApplicationAdapter implements Screen {
 	float speedP = 4, stateTime;
 	
 	SpriteBatch batch;
+	
+	BitmapFont font;
 	
 	static MyWorld world;
 	static Animator anim;
@@ -46,6 +49,7 @@ public class Map extends ApplicationAdapter implements Screen {
 		anim = new Animator();
 		ui = new Texture("ui.png");
 		stateTime = 0f;
+		font = new BitmapFont();
 	}
 	
 	
@@ -66,7 +70,7 @@ public class Map extends ApplicationAdapter implements Screen {
 		
 		debugMatrix = batch.getProjectionMatrix().cpy().scale(PTM, PTM, 0);
 		if(debug) renderer.render(world.getWorld(), debugMatrix);
-		
+		font.draw(batch, "FPS: "+Gdx.graphics.getFramesPerSecond(), 5, Gdx.graphics.getHeight()-10);
 		batch.end();
 	}
 	
@@ -117,6 +121,7 @@ public class Map extends ApplicationAdapter implements Screen {
 	@Override
 	public void dispose() {
 		world.dispose();
-		
+		font.dispose();
+		anim.dispose();
 	}
 }
