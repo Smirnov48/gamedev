@@ -23,7 +23,6 @@ public class Animator {
 	
 	public Animator(){ }
 	public Animation<TextureRegion> getAnim(){ return walkAnimation; }
-	public void dispose(){ walkSheet.dispose(); }
 	
 	
 	private void loadAnim(){

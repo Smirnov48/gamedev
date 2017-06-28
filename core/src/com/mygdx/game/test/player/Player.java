@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.test.controller.InputOne;
 import com.mygdx.game.test.controller.InputTwo;
+import com.mygdx.game.test.save.Save;
 import com.mygdx.game.test.wolrd.MyWorld;
 
 public class Player {
@@ -23,8 +24,8 @@ public class Player {
 	
 	static Body Player;
 	
-	static Sprite player; 
-	
+	static Sprite player;
+	static Save save;
 	static MyWorld world;
 	
 	public Body getBody(){ return Player; }
@@ -57,6 +58,10 @@ public class Player {
 				InputTwo.key() == 47 | InputTwo.key() == 20) return true;
 		else return false;
 	}
+	public static boolean save(){
+		if(InputOne.key() == 248) return true;
+		else return false;
+	}
 	
 	
 	
@@ -64,12 +69,13 @@ public class Player {
 		inputMultiplexer.addProcessor(inputProcessorOne);
 		inputMultiplexer.addProcessor(inputProcessorTwo);
 		Gdx.input.setInputProcessor(inputMultiplexer);
+		save = new Save();
 		
 		world = new MyWorld();
 		
 		player = new Sprite(new Texture(sprite));
 		player.setPosition(Gdx.graphics.getWidth()/2-player.getWidth()/2, Gdx.graphics.getHeight()/2-player.getHeight()/2);
-		Player = createObj(BodyDef.BodyType.DynamicBody, player, player.getX(), player.getY());
+		Player = createObj(BodyDef.BodyType.DynamicBody, player, save.getFloat("x")*PTM, save.getFloat("y")*PTM);
 		Player.getFixtureList().get(0).setUserData(userData);
 	}
 	
@@ -77,7 +83,7 @@ public class Player {
 	private Body createObj(BodyDef.BodyType type, Sprite sprite, float x, float y){
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = type;
-		bodyDef.position.set((x + sprite.getWidth()/2)/PTM, (y+sprite.getHeight()/2)/PTM);
+		bodyDef.position.set((x)/PTM, (y)/PTM);
 		
 		Body body = world.getWorld().createBody(bodyDef);
 		PolygonShape shape = new PolygonShape();

@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.mygdx.game.test.animations.Animator;
 import com.mygdx.game.test.player.Player;
+import com.mygdx.game.test.save.Save;
 import com.mygdx.game.test.wolrd.MyWorld;
 
 public class Map extends ApplicationAdapter implements Screen {
@@ -30,6 +31,7 @@ public class Map extends ApplicationAdapter implements Screen {
 	static MyWorld world;
 	static Animator anim;
 	static Player player;
+	static Save save;
 	
 	Texture ui;
 	
@@ -50,9 +52,16 @@ public class Map extends ApplicationAdapter implements Screen {
 		ui = new Texture("ui.png");
 		stateTime = 0f;
 		font = new BitmapFont();
+		save = new Save();
 	}
 	
-	
+	@SuppressWarnings("static-access")
+	private void savePos(){
+		System.out.println("Before: ("+save.getFloat("x")+", "+save.getFloat("y")+")");
+		save.putXY(player.getBody().getPosition());
+		System.out.println("After:  ("+save.getFloat("x")+", "+save.getFloat("y")+")");
+		save.flush();
+	}
 	
 	@Override
 	public void render(float delta) {
@@ -96,6 +105,7 @@ public class Map extends ApplicationAdapter implements Screen {
 			if(player.right()) player.getBody().setLinearVelocity(1, 0);
 			if(player.up()) player.getBody().setLinearVelocity(0, 1);
 			if(player.down()) player.getBody().setLinearVelocity(0, -1);
+			if(player.save()) savePos();
 		} else {
 			player.getBody().setLinearVelocity(0, 0);
 		}
@@ -122,6 +132,5 @@ public class Map extends ApplicationAdapter implements Screen {
 	public void dispose() {
 		world.dispose();
 		font.dispose();
-		anim.dispose();
 	}
 }
