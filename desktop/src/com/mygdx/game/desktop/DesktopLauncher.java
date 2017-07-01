@@ -1,5 +1,6 @@
 package com.mygdx.game.desktop;
 
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.game.test.Main;
@@ -7,9 +8,9 @@ import com.mygdx.game.test.Main;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "YarikBur";
-		config.width = 1280;
-		config.height = 720;
-		new LwjglApplication(new Main(), config);
+		new LwjglApplication(new SummerGame(), config);
+		config.title = "SummerGame";
+		config.width =  820;
+		config.height = 620;
 	}
 }

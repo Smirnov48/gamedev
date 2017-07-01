@@ -1,33 +1,46 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class SummerGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+public class SummerGame extends Game {
+	public static SummerGame game;
+	public static SpriteBatch batch;
+	
+	public static void setScr(Screen scr) {
+		game.setScreen(scr);
+	}
 	
 	@Override
 	public void create () {
+		game = this;
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		setScreen(new MainMenu());
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 100, 100);
-		batch.end();
+		super.render();
+	}
+
+	@Override
+	public void dispose () {
+		super.dispose();
 	}
 	
 	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
+	public void resize(int width, int height){
+		super.resize(width, height);
+	}
+	
+	@Override 
+	public void pause(){
+		super.pause();
+	}
+	
+	@Override
+	public void resume(){
+		super.resume();
 	}
 }
