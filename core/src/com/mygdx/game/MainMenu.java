@@ -2,13 +2,14 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 
 public class MainMenu extends ScreenAdapter {
 	Texture img;
 	
-	public MainMenu(SummerGame game) {
+	public MainMenu() {
 		img = new Texture("badlogic.jpg");
 	}
 
@@ -19,6 +20,9 @@ public class MainMenu extends ScreenAdapter {
 		SummerGame.batch.begin();
 		SummerGame.batch.draw(img, 0, 0);
 		SummerGame.batch.end();
+		
+		if (Gdx.input.isKeyPressed(Keys.Q)) SummerGame.setScr(new MainMenu());
+		if (Gdx.input.isKeyPressed(Keys.W));
 	}
 	
 	@Override
