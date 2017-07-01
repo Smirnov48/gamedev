@@ -8,9 +8,12 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class MainMenu extends ScreenAdapter {
 	Texture img;
+	private Player player;
 	
 	public MainMenu() {
 		img = new Texture("badlogic.jpg");
+		
+		player = new Player();
 	}
 
 	@Override
@@ -23,10 +26,13 @@ public class MainMenu extends ScreenAdapter {
 		
 		if (Gdx.input.isKeyPressed(Keys.Q)) SummerGame.setScr(new MainMenu());
 		if (Gdx.input.isKeyPressed(Keys.W));
+		
+		player.draw();
 	}
 	
 	@Override
 	public void dispose () {
 		img.dispose();
+		player.dispose();
 	}
 }
