@@ -12,6 +12,8 @@ public class SummerGame extends Game {
 		game.setScreen(scr);
 	}
 	
+	public static SpriteBatch getBatch(){ return batch; }
+	
 	@Override
 	public void create () {
 		game = this;

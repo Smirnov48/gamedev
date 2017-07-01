@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -32,6 +33,8 @@ public class Map extends ApplicationAdapter implements Screen {
 	static Player player;
 	static Save save;
 	
+	TextureRegion currentFrame;
+	
 	Main main;
 	
 	Box2DDebugRenderer renderer = new Box2DDebugRenderer();
@@ -42,7 +45,7 @@ public class Map extends ApplicationAdapter implements Screen {
 	
 	@Override
 	public void show() {
-		world = new MyWorld();
+		world = new MyWorld(0, 0);
 		batch = new SpriteBatch();
 		player = new Player("badlogic.jpg", "Player");
 		anim = new Animator();
@@ -51,6 +54,7 @@ public class Map extends ApplicationAdapter implements Screen {
 		save = new Save();
 		save.setBatch(batch);
 		save.setFont(font);
+		
 	}
 	
 	@SuppressWarnings("static-access")
@@ -60,9 +64,11 @@ public class Map extends ApplicationAdapter implements Screen {
 		drawFont();
 	}
 	
+	@SuppressWarnings("static-access")
 	@Override
 	public void render(float delta) {
 		stateTime += Gdx.graphics.getDeltaTime();
+		currentFrame = anim.getAnim().getKeyFrame(stateTime, true);
 		camera.update();
 		updateVariables();
 		Gdx.gl.glClearColor(.1f, .1f, .1f, 1);
@@ -75,7 +81,7 @@ public class Map extends ApplicationAdapter implements Screen {
 		drawSprite();
 		
 		debugMatrix = batch.getProjectionMatrix().cpy().scale(PTM, PTM, 0);
-		if(debug) renderer.render(world.getWorld(), debugMatrix);
+		if(player.getDebug()) renderer.render(world.getWorld(), debugMatrix);
 		
 		drawFont();
 		batch.end();
@@ -88,7 +94,8 @@ public class Map extends ApplicationAdapter implements Screen {
 	}
 	
 	private void drawSprite(){
-		player.getSprite().draw(batch);
+		//player.getSprite().draw(batch);
+		batch.draw(currentFrame, 25, 35);
 		//batch.draw(ui, 0, 0);
 	}
 	
@@ -115,9 +122,8 @@ public class Map extends ApplicationAdapter implements Screen {
 		}
 	}
 	
-	@SuppressWarnings("static-access")
 	public void updateVariables(){
-		this.debug = player.debug();
+		
 	}
 	
 	@Override
