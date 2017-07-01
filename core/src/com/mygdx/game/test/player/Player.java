@@ -65,6 +65,7 @@ public class Player {
 	
 	
 	
+	@SuppressWarnings("static-access")
 	public Player(String sprite, String userData){
 		inputMultiplexer.addProcessor(inputProcessorOne);
 		inputMultiplexer.addProcessor(inputProcessorTwo);

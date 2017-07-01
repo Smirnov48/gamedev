@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -33,8 +32,6 @@ public class Map extends ApplicationAdapter implements Screen {
 	static Player player;
 	static Save save;
 	
-	Texture ui;
-	
 	Main main;
 	
 	Box2DDebugRenderer renderer = new Box2DDebugRenderer();
@@ -49,18 +46,18 @@ public class Map extends ApplicationAdapter implements Screen {
 		batch = new SpriteBatch();
 		player = new Player("badlogic.jpg", "Player");
 		anim = new Animator();
-		ui = new Texture("ui.png");
 		stateTime = 0f;
 		font = new BitmapFont();
 		save = new Save();
+		save.setBatch(batch);
+		save.setFont(font);
 	}
 	
 	@SuppressWarnings("static-access")
 	private void savePos(){
-		System.out.println("Before: ("+save.getFloat("x")+", "+save.getFloat("y")+")");
 		save.putXY(player.getBody().getPosition());
-		System.out.println("After:  ("+save.getFloat("x")+", "+save.getFloat("y")+")");
 		save.flush();
+		drawFont();
 	}
 	
 	@Override
@@ -79,8 +76,15 @@ public class Map extends ApplicationAdapter implements Screen {
 		
 		debugMatrix = batch.getProjectionMatrix().cpy().scale(PTM, PTM, 0);
 		if(debug) renderer.render(world.getWorld(), debugMatrix);
-		font.draw(batch, "FPS: "+Gdx.graphics.getFramesPerSecond(), 5, Gdx.graphics.getHeight()-10);
+		
+		drawFont();
 		batch.end();
+	}
+	
+	private void drawFont(){
+		font.draw(batch, "FPS: "+Gdx.graphics.getFramesPerSecond(), 5, Gdx.graphics.getHeight()-10);
+		font.draw(batch, "X: "+player.getBody().getPosition().x+" Y: "+player.getBody().getPosition().y, 5, Gdx.graphics.getHeight()-25);
+		save.savingDraw();
 	}
 	
 	private void drawSprite(){
