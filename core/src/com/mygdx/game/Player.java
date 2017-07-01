@@ -38,7 +38,7 @@ public class Player {
 		
 		TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 		SummerGame.batch.begin();
-		SummerGame.batch.draw(currentFrame, 50, 50, -50, 50);
+		SummerGame.batch.draw(currentFrame, 350, 350, -50, 50);
 		SummerGame.batch.end();
 	}
 
