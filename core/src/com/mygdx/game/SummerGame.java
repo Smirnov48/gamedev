@@ -2,15 +2,15 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Iokin.World;
-import com.mygdx.game.Iokin.Player;
 
 public class SummerGame extends Game {
 	public static SummerGame game;
 	public static SpriteBatch batch;
+	Stats stats;
+	Texture tex;
 	
 	public static void setScr(Screen scr) {
 		game.setScreen(scr);
@@ -21,16 +21,26 @@ public class SummerGame extends Game {
 		game = this;
 		batch = new SpriteBatch();
 		setScreen(new MainMenu());
+		stats = new Stats(100);
+		System.out.println(stats.getHP());
+		tex = new Texture("bg.jpg");		
 	}
 
 	@Override
 	public void render () {
 		super.render();
+		batch.begin();
+		batch.draw(tex,10,10,10,10,stats.healPoint*2,20);
+		if(stats.healPoint > 0){
+			stats.updHP(-1);
+		}
+		batch.end();
 	}
 
 	@Override
 	public void dispose () {
 		super.dispose();
+		tex.dispose();
 	}
 	
 	@Override
