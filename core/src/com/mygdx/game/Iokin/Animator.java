@@ -2,7 +2,6 @@ package com.mygdx.game.Iokin;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -45,7 +44,7 @@ public class Animator implements ApplicationListener{
 			}
 
 			// Initialize the Animation with the frame interval and array of frames
-			walkAnimation = new Animation<TextureRegion>(0.025f, walkFrames);
+			walkAnimation = new Animation<TextureRegion>(0.05f, walkFrames);
 
 			// Instantiate a SpriteBatch for drawing and reset the elapsed animation
 			// time to 0
@@ -61,7 +60,7 @@ public class Animator implements ApplicationListener{
 			// Get current frame of animation for the current stateTime
 			TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 			spriteBatch.begin();
-			spriteBatch.draw(currentFrame, 50, 50); // Draw current frame at (50, 50)
+			spriteBatch.draw(currentFrame, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2-50); // Draw current frame at (50, 50)
 			spriteBatch.end();
 		}
 

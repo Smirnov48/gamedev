@@ -32,7 +32,7 @@ public class World {
 	
 	public void Left(){
 		boolean LeftPressed = Gdx.input.isKeyPressed(Keys.LEFT);
-		if ((LeftPressed)&&(x >= -500)){
+		if ((LeftPressed)&&(x >= -Gdx.graphics.getWidth())){
 			x -= 5;
 		}
 	}
@@ -53,7 +53,7 @@ public class World {
 	
 	public void Down(){
 		boolean DownPressed = Gdx.input.isKeyPressed(Keys.DOWN);
-		if ((DownPressed)&&(y >= -500)){
+		if ((DownPressed)&&(y >= -Gdx.graphics.getHeight())){
 			y-=5;
 		}
 	
