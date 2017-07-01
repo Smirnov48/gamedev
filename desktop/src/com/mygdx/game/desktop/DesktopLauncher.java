@@ -1,5 +1,6 @@
 package com.mygdx.game.desktop;
 
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.game.SummerGame;
@@ -10,5 +11,8 @@ public class DesktopLauncher {
 		config.width = 400;
 	    config.height = 400;
 		new LwjglApplication(new SummerGame(), config);
+		config.title = "SummerGame";
+		config.width =  820;
+		config.height = 620;
 	}
 }
