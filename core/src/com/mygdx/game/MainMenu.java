@@ -11,7 +11,7 @@ public class MainMenu extends ScreenAdapter {
 	private Player player;
 	
 	public MainMenu() {
-		img = new Texture("badlogic.jpg");
+		img = new Texture("terrain.jpg");
 		
 		player = new Player();
 	}
