@@ -12,15 +12,15 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class World {
-	private static final int FRAME_COLS = 6, FRAME_ROWS = 5;
-	Animation<TextureRegion> walkAnimation; // Must declare frame type (TextureRegion)
-	Texture walkSheet;
-	SpriteBatch spriteBatch;
-	float stateTime;
-	Texture img;
-	int x = 0,y = 0;
-	int x1 = 50, y1 = 50;
-	boolean a = false, b = false, c = false;
+	//private static final int FRAME_COLS = 6, FRAME_ROWS = 5;
+	//Animation<TextureRegion> walkAnimation; // Must declare frame type (TextureRegion)
+	//Texture walkSheet;
+	//SpriteBatch spriteBatch;
+	//float stateTime;
+	//Texture img;
+	//int x = 0,y = 0;
+	//int x1 = 50, y1 = 50;
+	//boolean a = false, b = false, c = false;
 	
 	
 	private TiledMap map;
@@ -32,35 +32,33 @@ public class World {
 public void render(SpriteBatch batch){
 	    Gdx.gl.glBlendColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		renderer.setView(camera);
-		renderer.render();
 		
 		
 		
 		
-		stateTime += Gdx.graphics.getDeltaTime();
-		TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime, c);
-		currentFrame.flip(a, b);
-		spriteBatch.begin();
-		spriteBatch.draw(img, x, y);
-		spriteBatch.draw(currentFrame,x1, y1);
-		currentFrame.flip(a, b);
-		spriteBatch.end();
+		//stateTime += Gdx.graphics.getDeltaTime();
+		//TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime, c);
+		//currentFrame.flip(a, b);
+		//spriteBatch.begin();
+		//spriteBatch.draw(img, x, y);
+		//spriteBatch.draw(currentFrame,x1, y1);
+		//currentFrame.flip(a, b);
+		//spriteBatch.end();
  }
  public World(){
-	    img = new Texture("terrain.jpg");
-		walkSheet = new Texture(Gdx.files.internal("running_men.png"));
-		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS,walkSheet.getHeight() / FRAME_ROWS);
-		TextureRegion[] walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
-		int index = 0;
-		for (int i = 0; i < FRAME_ROWS; i++) {
-			for (int j = 0; j < FRAME_COLS; j++) {
-				walkFrames[index++] = tmp[i][j];
-			}
-		};
-		walkAnimation = new Animation<TextureRegion>(0.025f, walkFrames);
-		spriteBatch = new SpriteBatch();
-		stateTime = 0f;
+	    //img = new Texture("terrain.jpg");
+		//walkSheet = new Texture(Gdx.files.internal("running_men.png"));
+		//TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS,walkSheet.getHeight() / FRAME_ROWS);
+		//TextureRegion[] walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+		//int index = 0;
+		//for (int i = 0; i < FRAME_ROWS; i++) {
+		//	for (int j = 0; j < FRAME_COLS; j++) {
+		//		walkFrames[index++] = tmp[i][j];
+		//	}
+		//};
+		//walkAnimation = new Animation<TextureRegion>(0.025f, walkFrames);
+		//spriteBatch = new SpriteBatch();
+		//stateTime = 0f;
 	 
 	 
 	 
@@ -72,7 +70,7 @@ public void render(SpriteBatch batch){
 	 camera = new OrthographicCamera();
 
  }
- public void up(){
+ /*public void up(){
 	 y += 5;
 	 if(y >= 1600/2 - img.getHeight()){
 		 y = 1600/2 - img.getHeight();
@@ -116,11 +114,11 @@ public void moveDown(){
 	 c = true;
 	 y1 -=5;
 }
-
+*/
  public void dispose(){
-	 img.dispose();
-	 spriteBatch.dispose();
-	 walkSheet.dispose();
+	// img.dispose();
+	 //spriteBatch.dispose();
+	 //walkSheet.dispose();
 	 
 	 
 	 map.dispose();

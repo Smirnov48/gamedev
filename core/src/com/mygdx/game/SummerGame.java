@@ -1,26 +1,29 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-//import com.mygdx.game.atommaks.World;
-import com.mygdx.game.screens.Play;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SummerGame extends Game {
+	public static SummerGame game;
+	public static SpriteBatch batch;
+	
+	public static void setScr(Screen scr) {
+		game.setScreen(scr);
+	}
 	
 	@Override
 	public void create () {
-		setScreen(new Play());
+		game = this;
+		batch = new SpriteBatch();
+		setScreen(new MainMenu());
 	}
 
 	@Override
 	public void render () {
 		super.render();
-		//world.render(batch);
-		
-		/*if(Gdx.input.isKeyPressed(Keys.D)){
-			world.moveRight();
-		} */
 	}
-	
+
 	@Override
 	public void dispose () {
 		super.dispose();
