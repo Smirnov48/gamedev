@@ -24,8 +24,7 @@ public class SummerGame extends Game {
 		batch = new SpriteBatch();
 		setScreen(new MainMenu());
 		stats = new Stats();
-		tex = new Texture("bg.jpg");
-		
+		tex = new Texture("bg.jpg");		
 	}
 
 	@Override
