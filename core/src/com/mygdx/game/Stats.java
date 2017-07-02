@@ -2,10 +2,13 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.mygdx.game.Player;
 
 public class Stats {
@@ -31,12 +34,20 @@ public class Stats {
 		redLine = new Texture("stats/redline.jpg");
 		yellowLine = new Texture("stats/yellowline.jpg");
 		
+		
 		font = new BitmapFont();
+		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(Gdx.files.internal("pixel.ttf"));
+		FreeTypeFontParameter param = new FreeTypeFontParameter();
+		param.size = 25;
+ 		param.borderColor = Color.BLACK;
+ 		param.borderWidth = 1;
+		font = gen.generateFont(param);
 		
 	}
 	
 	public void render(SpriteBatch ibatch,Player player){
 		SpriteBatch batch = ibatch;
+		//Управление репутацией
 		boolean eKey = Gdx.input.isKeyPressed(Keys.E);
 		boolean dKey = Gdx.input.isKeyPressed(Keys.D);
 		boolean rKey = Gdx.input.isKeyPressed(Keys.R);
@@ -55,9 +66,9 @@ public class Stats {
 		batch.draw(dpLogo, 20, 470, 48,48);
 		batch.draw(fpLogo,20,520,48,48);
 		batch.draw(hpLogo,20,570,48,48);
-		font.draw(batch, String.valueOf((int)(player.drinkPoints*100)),70,495);
-		font.draw(batch, String.valueOf((int)(player.foodPoints*100)),70,545);
-		font.draw(batch, String.valueOf((int)(player.healPoints*100)),70,595);
+		font.draw(batch, String.valueOf((int)(player.drinkPoints*100)),75,495);
+		font.draw(batch, String.valueOf((int)(player.foodPoints*100)),75,545);
+		font.draw(batch, String.valueOf((int)(player.healPoints*100)),75,595);
 		//Drawing reputation lines
 		batch.draw(fractions, 698,-15);
 		batch.draw(blueLine, 703, 35,32,(int)(256*player.getBlue()));
