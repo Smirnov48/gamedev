@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -11,6 +12,7 @@ public class SummerGame extends Game {
 	public static SpriteBatch batch;
 	Stats stats;
 	Texture tex;
+	
 	
 	public static void setScr(Screen scr) {
 		game.setScreen(scr);
@@ -22,7 +24,8 @@ public class SummerGame extends Game {
 		batch = new SpriteBatch();
 		setScreen(new MainMenu());
 		stats = new Stats();
-		tex = new Texture("bg.jpg");		
+		tex = new Texture("bg.jpg");
+		
 	}
 
 	@Override
