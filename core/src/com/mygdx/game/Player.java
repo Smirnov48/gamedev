@@ -13,6 +13,13 @@ public class Player {
 	Texture walkSheet;
 
 	float stateTime;
+	float healPoints = 0.3f;
+	float drinkPoints = 0.6f;
+	float foodPoints = 1.0f;
+	
+	float repYellow = 0.3f;
+	float repBlue = 0.5f;
+	float repRed = 0.7f;
 
 	public Player() {
 
@@ -45,4 +52,32 @@ public class Player {
 	public void dispose() {
 		walkSheet.dispose();
 	}
+	
+	public float getBlue(){return repBlue;};
+	public float getYellow(){return repYellow;};
+	public float getRed(){return repRed;}
+	
+	public float getHP(){return healPoints;}
+	public float getDP(){return drinkPoints;}
+	public float getFP(){return foodPoints;}
+	
+	public void updHP(float i){healPoints+=i;}
+	public void updDP(float i){drinkPoints+=i;}
+	public void updFP(float i){foodPoints+=i;}
+	
+	public void updBlue(float i){
+		if (repBlue + i > 1){repBlue = 1;}
+		else if (repBlue + i < 0){repBlue = 0;}
+		else {repBlue+=i;}
+		}
+	public void updRed(float i){
+		if (repRed + i > 1){repRed = 1;}
+		else if (repRed + i < 0){repRed = 0;}
+		else {repRed+=i;}
+		}
+	public void updYellow(float i){
+		if (repYellow + i > 1){repYellow = 1;}
+		else if (repYellow + i < 0){repYellow = 0;}
+		else {repYellow+=i;}
+		}
 }
