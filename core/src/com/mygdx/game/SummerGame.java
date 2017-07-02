@@ -21,20 +21,14 @@ public class SummerGame extends Game {
 		game = this;
 		batch = new SpriteBatch();
 		setScreen(new MainMenu());
-		stats = new Stats(100);
-		System.out.println(stats.getHP());
+		stats = new Stats();
 		tex = new Texture("bg.jpg");		
 	}
 
 	@Override
 	public void render () {
 		super.render();
-		batch.begin();
-		batch.draw(tex,10,10,10,10,stats.healPoint*2,20);
-		if(stats.healPoint > 0){
-			stats.updHP(-1);
-		}
-		batch.end();
+		stats.render(batch);
 	}
 
 	@Override

@@ -1,20 +1,24 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class Stats {
+	Texture hpLogo;
+	Texture fpLogo;
+	Texture dpLogo;
+	Texture fEast;
+	Texture fWest;
+	Texture fNorth;
 	
-	public int healPoint = 100;
-	float drinkPoint = 1;
-	float foodPoint = 1;
-	
-	public Stats(int hp){
-		healPoint =  hp;
+	public Stats(){
+		hpLogo = new Texture("stats/points.jpg") ;
 	}
 	
-	public int getHP(){
-		return healPoint;
-	}
-	
-	public void updHP(int hp){
-		healPoint += hp;
+	public void render(SpriteBatch ibatch){
+		SpriteBatch batch = ibatch;
+		batch.begin();
+		batch.draw(hpLogo,10,10);
+		batch.end();
 	}
 }
