@@ -20,21 +20,21 @@ public class Stats {
 	Texture blueLine;
 	Texture redLine;
 	Texture yellowLine;
+	//Font
 	BitmapFont font;
-	float i = 1.0f;
 	
 	public Stats(){
+		//LifeStats' textures
 		logos = new Texture("stats/points.jpg");
 		fpLogo = new TextureRegion(logos,0,0,45,60);
 		hpLogo = new TextureRegion(logos,45,12,37,38);
 		dpLogo = new TextureRegion(logos,88,0,35,60);
-		
+		//Reputation textures (three colored lines and fractionLogo)
 		fractions = new Texture("stats/fractions.jpg");
 		blueLine = new Texture("stats/blueline.jpg");
 		redLine = new Texture("stats/redline.jpg");
 		yellowLine = new Texture("stats/yellowline.jpg");
-		
-		
+		//Initializing font from pixel.ttf
 		font = new BitmapFont();
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(Gdx.files.internal("pixel.ttf"));
 		FreeTypeFontParameter param = new FreeTypeFontParameter();
@@ -66,9 +66,9 @@ public class Stats {
 		batch.draw(dpLogo, 20, 470, 48,48);
 		batch.draw(fpLogo,20,520,48,48);
 		batch.draw(hpLogo,20,570,48,48);
-		font.draw(batch, String.valueOf((int)(player.drinkPoints*100)),75,495);
-		font.draw(batch, String.valueOf((int)(player.foodPoints*100)),75,545);
-		font.draw(batch, String.valueOf((int)(player.healPoints*100)),75,595);
+		font.draw(batch, String.valueOf((int)(player.getDP()*100)),75,495);
+		font.draw(batch, String.valueOf((int)(player.getFP()*100)),75,545);
+		font.draw(batch, String.valueOf((int)(player.getHP()*100)),75,595);
 		//Drawing reputation lines
 		batch.draw(fractions, 698,-15);
 		batch.draw(blueLine, 703, 35,32,(int)(256*player.getBlue()));
@@ -76,4 +76,12 @@ public class Stats {
 		batch.draw(yellowLine,783,35,32,(int)(256*player.getYellow()));
 		batch.end();
 		}
-		}
+
+	public void dispose(){
+		logos.dispose();
+		fractions.dispose();
+		blueLine.dispose();
+		redLine.dispose();
+		yellowLine.dispose();
+	}
+}

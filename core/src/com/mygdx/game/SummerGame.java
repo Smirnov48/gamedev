@@ -12,7 +12,6 @@ public class SummerGame extends Game {
 	public static SummerGame game;
 	public static SpriteBatch batch;
 	Stats stats;
-	Texture tex;
 	Player player;
 	
 	public static void setScr(Screen scr) {
@@ -25,7 +24,6 @@ public class SummerGame extends Game {
 		batch = new SpriteBatch();
 		setScreen(new MainMenu());
 		stats = new Stats();
-		tex = new Texture("bg.jpg");
 		player = new Player();
 	}
 
@@ -38,7 +36,7 @@ public class SummerGame extends Game {
 	@Override
 	public void dispose () {
 		super.dispose();
-		tex.dispose();
+		stats.dispose();
 	}
 	
 	@Override

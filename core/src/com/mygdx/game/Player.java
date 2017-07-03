@@ -11,15 +11,15 @@ public class Player {
 
 	Animation<TextureRegion> walkAnimation;
 	Texture walkSheet;
-
 	float stateTime;
-	float healPoints = 0.3f;
-	float drinkPoints = 0.6f;
-	float foodPoints = 1.0f;
-	
-	float repYellow = 0.3f;
-	float repBlue = 0.5f;
-	float repRed = 0.7f;
+	//LifeStats
+	private float healPoints = 0.3f;
+	private float drinkPoints = 0.6f;
+	private float foodPoints = 1.0f;
+	//RepStats
+	private float repYellow = 0.3f;
+	private float repBlue = 0.5f;
+	private float repRed = 0.7f;
 
 	public Player() {
 
@@ -52,18 +52,30 @@ public class Player {
 	public void dispose() {
 		walkSheet.dispose();
 	}
-	
+	//Get methods of RepStats and LifeStats
 	public float getBlue(){return repBlue;};
 	public float getYellow(){return repYellow;};
 	public float getRed(){return repRed;}
-	
 	public float getHP(){return healPoints;}
 	public float getDP(){return drinkPoints;}
 	public float getFP(){return foodPoints;}
 	
-	public void updHP(float i){healPoints+=i;}
-	public void updDP(float i){drinkPoints+=i;}
-	public void updFP(float i){foodPoints+=i;}
+	//Updating methods for Life and RepStats with checking
+	public void updHP(float i){
+		if(healPoints + i > 100){healPoints = 100;}
+		else if (healPoints + i < 0){healPoints = 0;}
+		else{healPoints+=i;}
+		}
+	public void updDP(float i){
+		if(drinkPoints + i > 100){drinkPoints = 100;}
+		else if (drinkPoints + i < 0){drinkPoints = 0;}
+		else{drinkPoints+=i;}
+		}
+	public void updFP(float i){
+		if(foodPoints + i > 100){foodPoints = 100;}
+		else if (foodPoints + i < 0){foodPoints = 0;}
+		else{foodPoints+=i;}
+		}
 	
 	public void updBlue(float i){
 		if (repBlue + i > 1){repBlue = 1;}
