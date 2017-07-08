@@ -20,10 +20,11 @@ public class Play {
 		map = new TmxMapLoader().load("terrain.tmx");
 		renderer = new OrthogonalTiledMapRenderer(map, SummerGame.getBatch());
 		camera = new OrthographicCamera();
+		resize(820, 620);
 	}
 
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		renderer.setView(camera);
 		renderer.render();
@@ -70,10 +71,6 @@ public class Play {
 		camera.viewportWidth = width;
 		camera.viewportHeight = height;
 		camera.update();
-	}
-
-	public void hide() {
-		dispose();
 	}
 
 	public void dispose() {

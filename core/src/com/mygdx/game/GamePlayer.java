@@ -25,6 +25,7 @@ public class GamePlayer {
 	static MyWorld world;
 
 	SpriteBatch batch;
+
 	public GamePlayer() {
 		player = new Player("assets\\mage.png", "Player");
 		this.batch = SummerGame.getBatch();
@@ -36,8 +37,6 @@ public class GamePlayer {
 		stateTime += Gdx.graphics.getDeltaTime();
 		currentFrame = player.getAnim().getKeyFrame(stateTime, true);
 		camera.update();
-		Gdx.gl.glClearColor(1, 0, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		world.getWorld().step(delta, 4, 4);
 		batch.begin();
@@ -48,17 +47,27 @@ public class GamePlayer {
 		// player.getSprite().draw(batch);
 		if (player.getFlip()) {
 			if (player.getWalks())
-				batch.draw(currentFrame, player.getSprite().getX() + player.getSprite().getWidth(),
-						player.getSprite().getY(), -player.getSprite().getWidth(), player.getSprite().getHeight());
+				batch.draw(
+						currentFrame, 
+						player.getSprite().getX() + player.getSprite().getWidth() + 410,
+						player.getSprite().getY() + 310, 
+						- player.getSprite().getWidth(),
+						player.getSprite().getHeight()
+						);
 			else
-				batch.draw(player.getRegionPlayer("player1_0"),
-						player.getSprite().getX() + player.getSprite().getWidth(), player.getSprite().getY(),
-						-player.getSprite().getWidth(), player.getSprite().getHeight());
+				batch.draw(
+						player.getRegionPlayer("player1_0"),
+						player.getSprite().getX() + player.getSprite().getWidth() + 410, 
+						player.getSprite().getY() + 310,
+						-player.getSprite().getWidth(), 
+						player.getSprite().getHeight()
+						);
 		} else {
 			if (player.getWalks())
-				batch.draw(currentFrame, player.getSprite().getX(), player.getSprite().getY());
+				batch.draw(currentFrame, player.getSprite().getX() + 410, player.getSprite().getY() + 310);
 			else
-				batch.draw(player.getRegionPlayer("player1_0"), player.getSprite().getX(), player.getSprite().getY());
+				batch.draw(player.getRegionPlayer("player1_0"), player.getSprite().getX() + 410,
+						player.getSprite().getY() + 310);
 		}
 
 		debugMatrix = batch.getProjectionMatrix().cpy().scale(100, 100, 0);
