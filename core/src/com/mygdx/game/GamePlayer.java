@@ -14,7 +14,8 @@ import com.mygdx.game.test.wolrd.MyWorld;
 
 public class GamePlayer {
 	Box2DDebugRenderer renderer = new Box2DDebugRenderer();
-	OrthographicCamera camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	OrthographicCamera camera = new OrthographicCamera(Gdx.graphics.getWidth(),
+			Gdx.graphics.getHeight());
 	Matrix4 debugMatrix;
 
 	TextureRegion currentFrame;
@@ -47,26 +48,23 @@ public class GamePlayer {
 		// player.getSprite().draw(batch);
 		if (player.getFlip()) {
 			if (player.getWalks())
-				batch.draw(
-						currentFrame, 
-						player.getSprite().getX() + player.getSprite().getWidth() + 410,
-						player.getSprite().getY() + 310, 
-						- player.getSprite().getWidth(),
-						player.getSprite().getHeight()
-						);
+				batch.draw(currentFrame, player.getSprite().getX()
+						+ player.getSprite().getWidth() + 410, player
+						.getSprite().getY() + 310, -player.getSprite()
+						.getWidth(), player.getSprite().getHeight());
 			else
-				batch.draw(
-						player.getRegionPlayer("player1_0"),
-						player.getSprite().getX() + player.getSprite().getWidth() + 410, 
-						player.getSprite().getY() + 310,
-						-player.getSprite().getWidth(), 
-						player.getSprite().getHeight()
-						);
+				batch.draw(player.getRegionPlayer("player1_0"), player
+						.getSprite().getX()
+						+ player.getSprite().getWidth()
+						+ 410, player.getSprite().getY() + 310, -player
+						.getSprite().getWidth(), player.getSprite().getHeight());
 		} else {
 			if (player.getWalks())
-				batch.draw(currentFrame, player.getSprite().getX() + 410, player.getSprite().getY() + 310);
+				batch.draw(currentFrame, player.getSprite().getX() + 410,
+						player.getSprite().getY() + 310);
 			else
-				batch.draw(player.getRegionPlayer("player1_0"), player.getSprite().getX() + 410,
+				batch.draw(player.getRegionPlayer("player1_0"), player
+						.getSprite().getX() + 410,
 						player.getSprite().getY() + 310);
 		}
 
@@ -89,7 +87,8 @@ public class GamePlayer {
 	}
 
 	private void pos(Body body, Sprite sprite) {
-		sprite.setPosition((body.getPosition().x * 100) - sprite.getWidth() / 2,
+		sprite.setPosition(
+				(body.getPosition().x * 100) - sprite.getWidth() / 2,
 				(body.getPosition().y * 100) - sprite.getHeight() / 2);
 		sprite.setRotation(body.getAngle() * 100);
 	}

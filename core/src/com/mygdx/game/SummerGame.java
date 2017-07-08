@@ -11,38 +11,40 @@ public class SummerGame extends Game {
 	public static void setScr(Screen scr) {
 		game.setScreen(scr);
 	}
-	
-	public static SpriteBatch getBatch(){ return batch; }
-	
+
+	public static SpriteBatch getBatch() {
+		return batch;
+	}
+
 	@Override
-	public void create () {
+	public void create() {
 		game = this;
 		batch = new SpriteBatch();
 		setScreen(new GameScreen());
 	}
 
 	@Override
-	public void render () {
+	public void render() {
 		super.render();
 	}
 
 	@Override
-	public void dispose () {
+	public void dispose() {
 		super.dispose();
 	}
-	
+
 	@Override
-	public void resize(int width, int height){
+	public void resize(int width, int height) {
 		super.resize(width, height);
 	}
-	
-	@Override 
-	public void pause(){
+
+	@Override
+	public void pause() {
 		super.pause();
 	}
-	
+
 	@Override
-	public void resume(){
+	public void resume() {
 		super.resume();
 	}
 }

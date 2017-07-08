@@ -30,12 +30,14 @@ public class Stats {
 
 	private void loadTexture() {
 		Texture castle = new Texture("stats\\castle.png");
-		TextureRegion tmpCastle[][] = TextureRegion.split(castle, castle.getWidth() / 3, castle.getHeight());
+		TextureRegion tmpCastle[][] = TextureRegion.split(castle,
+				castle.getWidth() / 3, castle.getHeight());
 		for (int i = 0; i < 3; i++)
 			Fractions.put("castle" + i, tmpCastle[0][i]);
 
 		Texture points = new Texture("stats\\survival.png");
-		TextureRegion tmpPoints[][] = TextureRegion.split(points, points.getWidth() / 3, points.getHeight());
+		TextureRegion tmpPoints[][] = TextureRegion.split(points,
+				points.getWidth() / 3, points.getHeight());
 		for (int i = 0; i < 3; i++)
 			Points.put("point" + i, tmpPoints[0][i]);
 	}
@@ -54,7 +56,8 @@ public class Stats {
 		yellowLine = new Texture("stats/yellowline.jpg");
 		// Initializing font from pixel.ttf
 		font = new BitmapFont();
-		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(Gdx.files.internal("pixel.ttf"));
+		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
+				Gdx.files.internal("pixel.ttf"));
 		FreeTypeFontParameter param = new FreeTypeFontParameter();
 		param.size = 25;
 		param.borderColor = Color.BLACK;
@@ -96,28 +99,43 @@ public class Stats {
 		// batch.draw(dpLogo, 20, 470, 48,48);
 		// batch.draw(fpLogo,20,520,48,48);
 		// batch.draw(hpLogo,20,570,48,48);
-		batch.draw(Points.get("point1"), 10, Gdx.graphics.getHeight() - Points.get("point1").getRegionHeight()
+		batch.draw(Points.get("point1"), 10, Gdx.graphics.getHeight()
+				- Points.get("point1").getRegionHeight()
 				+ Points.get("point1").getRegionHeight() / 5);
-		batch.draw(Points.get("point0"), 10, Gdx.graphics.getHeight() - Points.get("point0").getRegionHeight() * 2
-				+ Points.get("point0").getRegionHeight() / 5);
-		batch.draw(Points.get("point2"), 10, Gdx.graphics.getHeight() - Points.get("point2").getRegionHeight() * 3
-				+ Points.get("point2").getRegionHeight() / 5);
-		font.draw(batch, String.valueOf((int) (player.getDP() * 100)), 75, Gdx.graphics.getHeight()
-				- Points.get("point1").getRegionHeight() + Points.get("point1").getRegionHeight() / 1.25f);
-		font.draw(batch, String.valueOf((int) (player.getFP() * 100)), 75, Gdx.graphics.getHeight()
-				- Points.get("point0").getRegionHeight() * 2 + Points.get("point0").getRegionHeight() / 1.25f);
-		font.draw(batch, String.valueOf((int) (player.getHP() * 100)), 75, Gdx.graphics.getHeight()
-				- Points.get("point2").getRegionHeight() * 3 + Points.get("point2").getRegionHeight() / 1.25f);
+		batch.draw(Points.get("point0"), 10,
+				Gdx.graphics.getHeight()
+						- Points.get("point0").getRegionHeight() * 2
+						+ Points.get("point0").getRegionHeight() / 5);
+		batch.draw(Points.get("point2"), 10,
+				Gdx.graphics.getHeight()
+						- Points.get("point2").getRegionHeight() * 3
+						+ Points.get("point2").getRegionHeight() / 5);
+		font.draw(
+				batch,
+				String.valueOf((int) (player.getDP() * 100)),
+				75,
+				Gdx.graphics.getHeight()
+						- Points.get("point1").getRegionHeight()
+						+ Points.get("point1").getRegionHeight() / 1.25f);
+		font.draw(batch, String.valueOf((int) (player.getFP() * 100)), 75,
+				Gdx.graphics.getHeight()
+						- Points.get("point0").getRegionHeight() * 2
+						+ Points.get("point0").getRegionHeight() / 1.25f);
+		font.draw(batch, String.valueOf((int) (player.getHP() * 100)), 75,
+				Gdx.graphics.getHeight()
+						- Points.get("point2").getRegionHeight() * 3
+						+ Points.get("point2").getRegionHeight() / 1.25f);
 		// Drawing reputation lines
 		// batch.draw(fractions, 698,-15);
 		batch.draw(blueLine, 703, 35, 32, (int) (256 * player.getBlue()));
 		batch.draw(redLine, 743, 35, 32, (int) (256 * player.getRed()));
 		batch.draw(yellowLine, 783, 35, 32, (int) (256 * player.getYellow()));
-		batch.draw(Fractions.get("castle2"), Gdx.graphics.getWidth() - Fractions.get("castle2").getRegionWidth(), 0);
-		batch.draw(Fractions.get("castle1"),
-				Gdx.graphics.getWidth() - Fractions.get("castle1").getRegionWidth() * 2 + 2, 0);
-		batch.draw(Fractions.get("castle0"),
-				Gdx.graphics.getWidth() - Fractions.get("castle0").getRegionWidth() * 3 + 4, 0);
+		batch.draw(Fractions.get("castle2"), Gdx.graphics.getWidth()
+				- Fractions.get("castle2").getRegionWidth(), 0);
+		batch.draw(Fractions.get("castle1"), Gdx.graphics.getWidth()
+				- Fractions.get("castle1").getRegionWidth() * 2 + 2, 0);
+		batch.draw(Fractions.get("castle0"), Gdx.graphics.getWidth()
+				- Fractions.get("castle0").getRegionWidth() * 3 + 4, 0);
 		batch.end();
 	}
 

@@ -24,8 +24,9 @@ public class Player {
 	public Player() {
 
 		walkSheet = new Texture(Gdx.files.internal("sprite-animation4.png"));
-		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS,
-				walkSheet.getHeight() / FRAME_ROWS);
+		TextureRegion[][] tmp = TextureRegion.split(walkSheet,
+				walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight()
+						/ FRAME_ROWS);
 
 		TextureRegion[] walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
 		int index = 0;
