@@ -18,17 +18,17 @@ public class MainMenu extends ScreenAdapter {
 	Box2DDebugRenderer renderer = new Box2DDebugRenderer();
 	OrthographicCamera camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	Matrix4 debugMatrix;
-	
+
 	Texture img;
 	TextureRegion currentFrame;
-	
-	float stateTime=0f;
-	
+
+	float stateTime = 0f;
+
 	private Player player;
 	static MyWorld world;
-	
+
 	SpriteBatch batch;
-	
+
 	public MainMenu() {
 		img = new Texture("terrain.jpg");
 		player = new Player("assets\\mage.png", "Player");
@@ -44,62 +44,73 @@ public class MainMenu extends ScreenAdapter {
 		camera.update();
 		Gdx.gl.glClearColor(1, 0, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		world.getWorld().step(delta, 4, 4);
 		batch.begin();
-		
+
 		batch.draw(img, 0, 0);
-		
+
 		pressed();
 		updatePosition();
-		
-		//player.getSprite().draw(batch);
-		if(player.getFlip()){
-			if(player.getWalks())
-				batch.draw(currentFrame, player.getSprite().getX()+player.getSprite().getWidth(), player.getSprite().getY(), -player.getSprite().getWidth(), player.getSprite().getHeight());
-			else batch.draw(player.getRegionPlayer("player1_0"), player.getSprite().getX()+player.getSprite().getWidth(), player.getSprite().getY(), -player.getSprite().getWidth(), player.getSprite().getHeight());
-		}
-		else{
-			if(player.getWalks())
+
+		// player.getSprite().draw(batch);
+		if (player.getFlip()) {
+			if (player.getWalks())
+				batch.draw(currentFrame, player.getSprite().getX() + player.getSprite().getWidth(),
+						player.getSprite().getY(), -player.getSprite().getWidth(), player.getSprite().getHeight());
+			else
+				batch.draw(player.getRegionPlayer("player1_0"),
+						player.getSprite().getX() + player.getSprite().getWidth(), player.getSprite().getY(),
+						-player.getSprite().getWidth(), player.getSprite().getHeight());
+		} else {
+			if (player.getWalks())
 				batch.draw(currentFrame, player.getSprite().getX(), player.getSprite().getY());
-			else batch.draw(player.getRegionPlayer("player1_0"), player.getSprite().getX(), player.getSprite().getY());
+			else
+				batch.draw(player.getRegionPlayer("player1_0"), player.getSprite().getX(), player.getSprite().getY());
 		}
-		
+
 		debugMatrix = batch.getProjectionMatrix().cpy().scale(100, 100, 0);
-		if(player.getDebug()) renderer.render(world.getWorld(), debugMatrix);
-		
+		if (player.getDebug())
+			renderer.render(world.getWorld(), debugMatrix);
+
 		batch.end();
-//		System.out.println("Flip: "+player.getFlip()+" Walks: "+player.getWalks());
-		
-//		if (Gdx.input.isKeyPressed(Keys.Q)) SummerGame.setScr(new MainMenu());
-//		if (Gdx.input.isKeyPressed(Keys.W));
+		// System.out.println("Flip: "+player.getFlip()+" Walks:
+		// "+player.getWalks());
+
+		// if (Gdx.input.isKeyPressed(Keys.Q)) SummerGame.setScr(new
+		// MainMenu());
+		// if (Gdx.input.isKeyPressed(Keys.W));
 	}
-	
+
 	@SuppressWarnings("static-access")
-	private void updatePosition(){
+	private void updatePosition() {
 		pos(player.getBody(), player.getSprite());
 	}
-	
-	private void pos(Body body, Sprite sprite){
-		sprite.setPosition((body.getPosition().x*100)-sprite.getWidth()/2, 
-				(body.getPosition().y*100)-sprite.getHeight()/2);
-		sprite.setRotation(body.getAngle()*100);
+
+	private void pos(Body body, Sprite sprite) {
+		sprite.setPosition((body.getPosition().x * 100) - sprite.getWidth() / 2,
+				(body.getPosition().y * 100) - sprite.getHeight() / 2);
+		sprite.setRotation(body.getAngle() * 100);
 	}
-	
+
 	@SuppressWarnings("static-access")
-	private void pressed(){
-		if(player.pressed()){
-			if(player.left()) player.getBody().setLinearVelocity(-1, 0);
-			if(player.right()) player.getBody().setLinearVelocity(1, 0);
-			if(player.up()) player.getBody().setLinearVelocity(0, 1);
-			if(player.down()) player.getBody().setLinearVelocity(0, -1);
+	private void pressed() {
+		if (player.pressed()) {
+			if (player.left())
+				player.getBody().setLinearVelocity(-1, 0);
+			if (player.right())
+				player.getBody().setLinearVelocity(1, 0);
+			if (player.up())
+				player.getBody().setLinearVelocity(0, 1);
+			if (player.down())
+				player.getBody().setLinearVelocity(0, -1);
 		} else {
 			player.getBody().setLinearVelocity(0, 0);
 		}
 	}
-	
+
 	@Override
-	public void dispose () {
+	public void dispose() {
 		img.dispose();
 		world.dispose();
 	}

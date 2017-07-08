@@ -13,7 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.summer.entities.Player;
 
 public class Play implements Screen {
-	
+
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
@@ -30,45 +30,45 @@ public class Play implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0 , 0 , 0 , 1);  
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		renderer.setView(camera);
 		renderer.render();
 		renderer.getBatch().begin();
 		player.draw(renderer.getBatch());
-		if(a){
+		if (a) {
 			camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		}
 		renderer.getBatch().end();
-		if(camera.zoom < 0.2){
-			camera.zoom = (float)0.2;
+		if (camera.zoom < 0.2) {
+			camera.zoom = (float) 0.2;
 		}
-		if(camera.zoom > 3){
+		if (camera.zoom > 3) {
 			camera.zoom = 3;
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			camera.translate(-3, 0, 0);
 			a = false;
 		}
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			camera.translate(3, 0, 0);
 			a = false;
 		}
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
-	        camera.translate(0, 3, 0);
-	        a = false;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-	        camera.translate(0, -3, 0);
-	        a = false;
-        }
+		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			camera.translate(0, 3, 0);
+			a = false;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			camera.translate(0, -3, 0);
+			a = false;
+		}
 		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 			camera.zoom += 0.02;
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
 			camera.zoom -= 0.02;
-		}	
-		if(Gdx.input.isKeyPressed(Input.Keys.M)){
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.M)) {
 			a = true;
 		}
 		camera.update();
@@ -78,17 +78,17 @@ public class Play implements Screen {
 	public void resize(int width, int height) {
 		camera.viewportWidth = width;
 		camera.viewportHeight = height;
-		camera.update(); 
+		camera.update();
 	}
 
 	@Override
 	public void pause() {
-		
+
 	}
 
 	@Override
 	public void resume() {
-		
+
 	}
 
 	@Override

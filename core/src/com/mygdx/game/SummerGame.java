@@ -29,7 +29,7 @@ public class SummerGame extends Game {
 	@Override
 	public void render () {
 		super.render();
-		stats.render(batch,player);
+		stats.render(batch, player);
 	}
 
 	@Override
