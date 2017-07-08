@@ -24,7 +24,7 @@ public class Play implements Screen {
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
 	private Player player;
-	private boolean a = true;
+	private boolean a = false;
 
 	@Override
 	public void show() {
@@ -42,6 +42,7 @@ public class Play implements Screen {
 		renderer.render();
 		renderer.getBatch().begin();
 		player.draw(renderer.getBatch());
+		camera.position.set(player.getX() + player.getWidth()/2 , player.getY() + player.getHeight()/2, delta);
 		if(a){
 			camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		}
