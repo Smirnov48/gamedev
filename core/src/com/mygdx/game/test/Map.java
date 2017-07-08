@@ -89,7 +89,7 @@ public class Map extends ApplicationAdapter implements Screen {
 	
 	private void drawFont(){
 		font.draw(batch, "FPS: "+Gdx.graphics.getFramesPerSecond(), 5, Gdx.graphics.getHeight()-10);
-		font.draw(batch, "X: "+player.getBody().getPosition().x+" Y: "+player.getBody().getPosition().y, 5, Gdx.graphics.getHeight()-25);
+		font.draw(batch, "X: "+Player.getBody().getPosition().x+" Y: "+Player.getBody().getPosition().y, 5, Gdx.graphics.getHeight()-25);
 		save.savingDraw();
 	}
 	
@@ -100,7 +100,7 @@ public class Map extends ApplicationAdapter implements Screen {
 	}
 	
 	private void updatePosition(){
-		pos(player.getBody(), player.getSprite());
+		pos(Player.getBody(), Player.getSprite());
 	}
 	
 	private void pos(Body body, Sprite sprite){
