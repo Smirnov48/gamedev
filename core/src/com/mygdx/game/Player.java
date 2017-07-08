@@ -117,4 +117,40 @@ public class Player {
 			repYellow += i;
 		}
 	}
+	
+	public void setHP(float i){
+		if ((i < 1.01f) && (i > -0.01f)){
+			healPoints = i;
+		}
+	}
+	
+	public void setDP(float i){
+		if ((i < 1.01f) && (i > -0.01f)){
+			drinkPoints = i;
+		}
+	}
+	
+	public void setFP(float i){
+		if ((i < 1.01f) && (i > -0.01f)){
+			foodPoints = i;
+		}
+	}
+	
+	public void setBlue(float i){
+		if ((i < 1.01f) && (i > -0.01f)){
+			repBlue = i;
+		}
+	}
+	
+	public void setRed(float i){
+		if ((i < 1.01f) && (i > -0.01f)){
+			repRed = i;
+		}
+	}
+	
+	public void setYellow(float i){
+		if ((i < 1.01f) && (i > -0.01f)){
+			repYellow = i;
+		}
+	}
 }
